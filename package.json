@@ -1,0 +1,45 @@
+{
+  "name": "phone-number-client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "lint:fix": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "component": "generate-react component",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-select": "^5.7.0",
+    "sass": "^1.58.2",
+    "socket.io-client": "^4.6.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.52.0",
+    "@vitejs/plugin-react": "^3.1.0",
+    "esbuild": "^0.17.8",
+    "eslint": "^8.0.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-standard-with-typescript": "^34.0.0",
+    "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.32.2",
+    "generate-react-cli": "^8.2.0",
+    "husky": "^8.0.0",
+    "typescript": "*",
+    "vite": "^4.1.0"
+  }
+}
