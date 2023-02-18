@@ -1,21 +1,20 @@
 import './App.sass'
-import io from 'socket.io-client'
+import { useEffect } from 'react'
+import { fetchNums } from './redux/slicers/phoneSlicer'
+import { useAppDispatch, useAppSelector } from './hooks'
+import type Phone from './models/Phone'
 
 function App () {
-  const socket = io('http://localhost:8000')
+  const phones = useAppSelector((state) => state.phone.numList)
+  const isLoading = useAppSelector((state: any) => state.phone.isLoading)
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(fetchNums())
+  }, [])
 
-  socket.on('connect', () => {
-    console.log('Connected to server')
-  })
-
-  socket.on('message', (data) => {
-    console.log('Received message from server:', data)
-  })
   return (
     <div className="App">
-
-      JS
-
+      {isLoading === true ? 'Загрузка' : phones.map((data: Phone) => <p key={data.id}>{data.phoneNumber}</p>) }
     </div>
   )
 }
