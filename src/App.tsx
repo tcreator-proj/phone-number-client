@@ -1,20 +1,31 @@
-import './App.sass'
-import { useEffect } from 'react'
-import { fetchNums } from './redux/slicers/phoneSlicer'
+import { type FormEvent, type FormEventHandler, useCallback, useEffect } from 'react'
+import style from './App.module.sass'
+import { fetchNums, startConnecting } from './redux/slicers/phoneSlicer'
 import { useAppDispatch, useAppSelector } from './hooks'
-import type Phone from './models/Phone'
+import PhonesList from './components/PhonesList/PhonesList'
+import SpinLoader from './components/SpinLoader/SpinLoader'
+import NumberInput from './components/Form/Form'
 
 function App () {
-  const phones = useAppSelector((state) => state.phone.numList)
-  const isLoading = useAppSelector((state: any) => state.phone.isLoading)
   const dispatch = useAppDispatch()
+  const isLoading = useAppSelector((store) => store.phone.isLoading)
   useEffect(() => {
     dispatch(fetchNums())
+    dispatch(startConnecting())
+  }, [])
+
+  const onSubmitHandler: FormEventHandler = useCallback((event: FormEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    // const target: HTMLFormElement = event.target as HTMLFormElement
+    // const [input, select] = target
+    //
+    // const options: HTMLOptionElement[] = Array.from((select as HTMLSelectElement).options)
   }, [])
 
   return (
-    <div className="App">
-      {isLoading === true ? 'Загрузка' : phones.map((data: Phone) => <p key={data.id}>{data.phoneNumber}</p>) }
+    <div className={style.app}>
+      {isLoading ? <SpinLoader /> : <PhonesList />}
+      <NumberInput onSubmitForm={onSubmitHandler} />
     </div>
   )
 }

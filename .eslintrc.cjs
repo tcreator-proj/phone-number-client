@@ -29,6 +29,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'react/jsx-uses-react': ['off'],
     'react/jsx-props-no-spreading': ['warn'],
-    'react/no-unescaped-entities': ['off']
+    'react/no-unescaped-entities': ['off'],
+    '@typescript-eslint/no-floating-promises': "warn"
   }
 }
