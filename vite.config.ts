@@ -7,7 +7,7 @@ export default defineConfig(({ command, mode }) => {
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   return {
     build: {
-      assetsDir: ''
+      assetsDir: 'phone-number-client',
     },
     plugins: [react()]
   }
