@@ -1,7 +1,7 @@
-enum PhonesEvent {
+const enum PhonesEvent {
   APPEND_NUMBER = 'APPEND_NUMBER',
-  REQUEST_ALL_PHONES = 'REQUEST_ALL_PHONES',
-  RECEIVE_PHONE = 'RECEIVE_PHONE'
+  RECEIVE_NEW_PHONE = 'RECEIVE_NEW_PHONE',
+  ERROR = 'ERROR'
 }
 
 export default PhonesEvent

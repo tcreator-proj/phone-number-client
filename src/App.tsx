@@ -1,6 +1,6 @@
 import { type FormEvent, type FormEventHandler, useCallback, useEffect } from 'react'
 import style from './App.module.sass'
-import { fetchNums, startConnecting } from './redux/slicers/phoneSlicer'
+import { fetchNums, startConnecting, submitPhone } from './redux/slicers/phoneSlicer'
 import { useAppDispatch, useAppSelector } from './hooks'
 import PhonesList from './components/PhonesList/PhonesList'
 import SpinLoader from './components/SpinLoader/SpinLoader'
@@ -16,16 +16,34 @@ function App () {
 
   const onSubmitHandler: FormEventHandler = useCallback((event: FormEvent<HTMLInputElement>) => {
     event.preventDefault()
-    // const target: HTMLFormElement = event.target as HTMLFormElement
-    // const [input, select] = target
-    //
-    // const options: HTMLOptionElement[] = Array.from((select as HTMLSelectElement).options)
+    const target: HTMLFormElement = event.target as HTMLFormElement
+    const [input, select] = target
+
+    const inputTypeElement: HTMLInputElement = input as HTMLInputElement
+
+    if (inputTypeElement.value.length > 10 || inputTypeElement.value.length < 3) {
+      inputTypeElement.setCustomValidity('Number must be from 3 to 10 digits')
+      return
+    }
+
+    const selectionValue: string = (select as HTMLSelectElement).value
+    dispatch(submitPhone({
+      phoneNumber: inputTypeElement.value,
+      countryCode: selectionValue
+    }))
+
+    inputTypeElement.value = ''
+  }, [])
+
+  const onInputHandler: FormEventHandler = useCallback((e: FormEvent<HTMLInputElement>) => {
+    const target: HTMLInputElement = e.target as HTMLInputElement
+    target.setCustomValidity('')
   }, [])
 
   return (
     <div className={style.app}>
       {isLoading ? <SpinLoader /> : <PhonesList />}
-      <NumberInput onSubmitForm={onSubmitHandler} />
+      <NumberInput onSubmitForm={onSubmitHandler} onInput={onInputHandler} />
     </div>
   )
 }

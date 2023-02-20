@@ -1,8 +1,8 @@
 export default class Phone {
   constructor (
-    readonly id: string,
+    readonly id: number,
     readonly countryCode: string,
     readonly phoneNumber: string,
-    readonly createdAt: number
+    readonly createdAt: string
   ) {}
 }

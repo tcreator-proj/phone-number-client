@@ -3,9 +3,10 @@ import styles from './Form.module.sass'
 
 interface FromProps {
   onSubmitForm: FormEventHandler
+  onInput: FormEventHandler
 }
 
-function Form ({ onSubmitForm }: FromProps) {
+function Form ({ onSubmitForm, onInput }: FromProps) {
   return (
     <form
       className={styles.form}
@@ -14,17 +15,18 @@ function Form ({ onSubmitForm }: FromProps) {
     >
       <div className={styles.inputBox}>
         <input
+          onInput={onInput}
           className={styles.input}
           type="number"
+          pattern="[0-9]{3,10}"
+          required
           id="num"
-          minLength={3}
-          maxLength={10}
           placeholder="type your phone"
         />
         <select id="phone-country">
-          <option value="russia">+7</option>
-          <option value="armenia">+374</option>
-          <option value="bolivia">+591</option>
+          <option value="+7">+7</option>
+          <option value="+374">+374</option>
+          <option value="+591">+591</option>
         </select>
       </div>
     </form>

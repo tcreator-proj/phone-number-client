@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import type Phone from '../../models/Phone'
+import Phone from '../../models/Phone'
 
 export interface NumberListState {
   numList: Phone[]
@@ -7,6 +7,11 @@ export interface NumberListState {
   isWsConnected: boolean
   isEstablishingConnection: boolean
   error: any
+}
+
+interface SubmitPhoneType {
+  phoneNumber: string
+  countryCode: string
 }
 
 const initialState: NumberListState = {
@@ -20,8 +25,10 @@ const phonesSlicer = createSlice({
   name: 'phones',
   initialState,
   reducers: {
-    append: (state: NumberListState, action: PayloadAction) => {
-      console.log(action)
+    append: (state: NumberListState, action: PayloadAction<Phone>) => {
+      const { id, phoneNumber, countryCode, createdAt } = action.payload
+
+      state.numList.push(new Phone(id, countryCode, phoneNumber, createdAt))
     },
     fetchNumsStarted: (state: NumberListState) => {
       state.isLoading = true
@@ -32,7 +39,6 @@ const phonesSlicer = createSlice({
       state.numList = payload.body
     },
     fetchNumsFailed: (state: NumberListState, action: PayloadAction) => {
-      state.isLoading = false
       state.error = action.payload
     },
     startConnecting: (state: NumberListState) => {
@@ -42,12 +48,7 @@ const phonesSlicer = createSlice({
       state.isWsConnected = true
       state.isEstablishingConnection = true
     },
-    receiveAllPhones: (state, action: PayloadAction<{
-      numList: Phone[]
-    }>) => {
-      state.numList = action.payload.numList
-    },
-    submitPhone: () => {}
+    submitPhone: (state: NumberListState, action: PayloadAction<SubmitPhoneType>) => {}
   }
 })
 
@@ -73,4 +74,5 @@ export const fetchNums = () => async (dispatch: any) => {
     dispatch(fetchNumsFailed(error.message))
   }
 }
+
 export default phonesSlicer
