@@ -8,7 +8,7 @@ const phonesMiddleware: Middleware = (store) => {
 
   return (next) => (action) => {
     const isConnectionEstablished = socket !== null
-    const url = import.meta.env.VITE_REACT_APP_API_URL || 8080
+    const url: string = import.meta.env.VITE_REACT_APP_API_URL
     if (startConnecting.match(action)) {
       socket = io(url)
 
