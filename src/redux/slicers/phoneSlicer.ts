@@ -67,7 +67,11 @@ export const fetchNums = () => async (dispatch: any) => {
   dispatch(fetchNumsStarted())
   try {
     const url: string = import.meta.env.VITE_REACT_APP_API_URL
-    const response = await fetch(`${url}/phones`)
+    console.log(url)
+    const response = await fetch(`${url}/phones`,  {
+      method: 'GET',
+      credentials: 'omit'
+    })
 
     const data = await response.json()
     dispatch(fetchNumsSuccess(data))
