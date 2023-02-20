@@ -13,7 +13,6 @@ function App () {
     dispatch(fetchNums())
     dispatch(startConnecting())
   }, [])
-
   const onSubmitHandler: FormEventHandler = useCallback((event: FormEvent<HTMLInputElement>) => {
     event.preventDefault()
     const target: HTMLFormElement = event.target as HTMLFormElement
