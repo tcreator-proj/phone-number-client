@@ -14,6 +14,12 @@ function App () {
     dispatch(fetchNums())
     dispatch(startConnecting())
   }, [])
+
+  const reportValidation = useCallback((input: HTMLInputElement, errorMessage: string = '') => {
+    input.setCustomValidity(errorMessage)
+    input.reportValidity()
+  }, [])
+
   const onSubmitHandler: FormEventHandler = useCallback((event: FormEvent<HTMLInputElement>) => {
     event.preventDefault()
     const target: HTMLFormElement = event.target as HTMLFormElement
@@ -22,7 +28,7 @@ function App () {
     const inputTypeElement: HTMLInputElement = input as HTMLInputElement
 
     if (inputTypeElement.value.length > 10 || inputTypeElement.value.length < 3) {
-      inputTypeElement.setCustomValidity('Number must be from 3 to 10 digits')
+      reportValidation(inputTypeElement, 'Number must be from 3 to 10 digits')
       return
     }
 
@@ -38,7 +44,11 @@ function App () {
 
   const onInputHandler: FormEventHandler = useCallback((e: FormEvent<HTMLInputElement>) => {
     const target: HTMLInputElement = e.target as HTMLInputElement
-    target.setCustomValidity('')
+    if (target.value.length > 10 || target.value.length < 3) {
+      reportValidation(target, 'Number must be from 3 to 10 digits')
+    } else {
+      target.setCustomValidity('')
+    }
   }, [])
 
   return (

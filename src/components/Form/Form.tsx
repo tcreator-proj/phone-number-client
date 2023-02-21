@@ -30,6 +30,7 @@ function Form ({ onSubmitForm, onInput, selections }: FromProps) {
           placeholder="type your phone"
         />
       </div>
+      <button type="submit">send</button>
     </form>
   )
 }
