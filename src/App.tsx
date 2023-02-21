@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from './hooks'
 import PhonesList from './components/PhonesList/PhonesList'
 import SpinLoader from './components/SpinLoader/SpinLoader'
 import NumberInput from './components/Form/Form'
+import selections from './shared/selections'
 
 function App () {
   const dispatch = useAppDispatch()
@@ -16,7 +17,7 @@ function App () {
   const onSubmitHandler: FormEventHandler = useCallback((event: FormEvent<HTMLInputElement>) => {
     event.preventDefault()
     const target: HTMLFormElement = event.target as HTMLFormElement
-    const [input, select] = target
+    const [select, input] = target
 
     const inputTypeElement: HTMLInputElement = input as HTMLInputElement
 
@@ -26,6 +27,7 @@ function App () {
     }
 
     const selectionValue: string = (select as HTMLSelectElement).value
+
     dispatch(submitPhone({
       phoneNumber: inputTypeElement.value,
       countryCode: selectionValue
@@ -42,7 +44,13 @@ function App () {
   return (
     <div className={style.app}>
       {isLoading ? <SpinLoader /> : <PhonesList />}
-      <NumberInput onSubmitForm={onSubmitHandler} onInput={onInputHandler} />
+      <div className={style.staticBox}>
+        <NumberInput
+          onSubmitForm={onSubmitHandler}
+          onInput={onInputHandler}
+          selections={selections.data}
+        />
+      </div>
     </div>
   )
 }

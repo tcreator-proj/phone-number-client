@@ -4,9 +4,12 @@ import styles from './Form.module.sass'
 interface FromProps {
   onSubmitForm: FormEventHandler
   onInput: FormEventHandler
+  selections: Array<{ value: string, label: string }>
 }
 
-function Form ({ onSubmitForm, onInput }: FromProps) {
+function Form ({ onSubmitForm, onInput, selections }: FromProps) {
+  const mapFromSelections = () => selections
+    .map((el) => <option key={el.value} value={el.value}>{el.value}</option>)
   return (
     <form
       className={styles.form}
@@ -14,6 +17,9 @@ function Form ({ onSubmitForm, onInput }: FromProps) {
       onSubmit={onSubmitForm}
     >
       <div className={styles.inputBox}>
+        <select id="phone-country">
+          {mapFromSelections()}
+        </select>
         <input
           onInput={onInput}
           className={styles.input}
@@ -23,11 +29,6 @@ function Form ({ onSubmitForm, onInput }: FromProps) {
           id="num"
           placeholder="type your phone"
         />
-        <select id="phone-country">
-          <option value="+7">+7</option>
-          <option value="+374">+374</option>
-          <option value="+591">+591</option>
-        </select>
       </div>
     </form>
   )

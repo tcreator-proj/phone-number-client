@@ -6,7 +6,9 @@ const store = configureStore({
   reducer: {
     phone: phonesSlicer.reducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([phonesMiddleware]),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(
+    { serializableCheck: false }
+  ).concat([phonesMiddleware]),
   devTools: true
 })
 

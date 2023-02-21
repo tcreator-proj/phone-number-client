@@ -17,12 +17,14 @@ function PhonesList ({ numList }: PhonesListProps) {
 
   return (
     <div className={styles.phonesList} data-testid="PhonesList">
+      <h1>Список:</h1>
       <ul>
         {getItems()}
       </ul>
     </div>
   )
 }
+
 const mapStateToProps = (state: RootState) => ({
   numList: state.phone.numList
 })
